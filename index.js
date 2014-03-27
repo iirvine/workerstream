@@ -21,7 +21,12 @@ module.exports = function(path) {
 module.exports.WorkerStream = WorkerStream
 
 WorkerStream.prototype.workerMessage = function(e) {
-  this.emit('data', e.data, e)
+  switch (e.data.type) {
+    case 'end':
+      this.end();
+      break;
+    default: this.emit('data', e.data, e)
+  }
 }
 
 WorkerStream.prototype.workerError = function(err) {

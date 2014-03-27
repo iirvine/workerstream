@@ -34,4 +34,5 @@ ParentStream.prototype.write = function(data, opts) {
 
 ParentStream.prototype.end = function() {
   this.emit('end')
+  this.write({ type: 'end' })
 }
